@@ -40,13 +40,13 @@ resource "aws_default_vpc" "default" {
 
 ## subnet
 
-resource "aws_subnet" "sn" {
-  vpc_id     = aws_default_vpc.default.id
-  cidr_block = var.subnet_cidr_block
-  tags = {
-    Name = "${var.namespace}-sn"
-  }
-}
+# resource "aws_subnet" "sn" {
+#   vpc_id     = aws_default_vpc.default.id
+#   cidr_block = var.subnet_cidr_block
+#   tags = {
+#     Name = "${var.namespace}-sn"
+#   }
+# }
 
 ## security
 
@@ -96,7 +96,7 @@ resource "aws_instance" "kafka_cli" {
   instance_type               = "t3.micro"
   associate_public_ip_address = true
   key_name                    = var.key_name
-  subnet_id                   = aws_subnet.sn.id
+#   subnet_id                   = aws_subnet.sn.id
   vpc_security_group_ids      = [aws_security_group.allow_tls.id]
 
   connection {
