@@ -76,15 +76,28 @@ variable "subnet_cidr_block" {
   default     = "172.31.201.0/24"
 }
 
-## kafka
-
-variable kafka_ip {
+variable "private_key" {
   type        = string
   default     = null
-  description = "a ip of kafka cluster"
+  description = "ssh private key"
 }
 
-variable kafka_topic {
+variable "ami" {
+  type        = string
+  default     = "ami-06a97eeb32a2298e1"
+  description = "ami"
+}
+
+
+## kafka
+
+variable "zk_ip" {
+  type        = string
+  default     = null
+  description = "a ip of zk cluster"
+}
+
+variable "kafka_topic" {
   type        = string
   default     = "testTopic"
   description = "the topic of kafka"

@@ -14,21 +14,21 @@ provider "aws" {
 
 ## ami
 
-data "aws_ami" "ubuntu" {
-  most_recent = true
+# data "aws_ami" "ubuntu" {
+#   most_recent = true
 
-  filter {
-    name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
-  }
+#   filter {
+#     name   = "name"
+#     values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"]
+#   }
 
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
+#   filter {
+#     name   = "virtualization-type"
+#     values = ["hvm"]
+#   }
 
-  owners = ["099720109477"] # Canonical
-}
+#   owners = ["099720109477"] # Canonical
+# }
 
 ## vpc
 
@@ -92,15 +92,32 @@ resource "aws_security_group" "allow_tls" {
 ## ec2
 
 resource "aws_instance" "kafka_cli" {
-  ami                         = data.aws_ami.ubuntu.id
+  ami                         = var.ami
   instance_type               = "t3.micro"
   associate_public_ip_address = true
   key_name                    = var.key_name
   #   subnet_id = aws_subnet.sn.id
   vpc_security_group_ids = [aws_security_group.allow_tls.id]
 
+  connection {
+    type        = "ssh"
+    host        = self.public_ip
+    user        = "ubuntu"
+    private_key = var.private_key
+  }
+
   # install kafka
-  user_data = templatefile("${path.module}/scripts/install.sh", { kafka_ip = var.kafka_ip, kafka_topic = var.kafka_topic })
+  #   provisioner "file" {
+  #     content     = templatefile("${path.module}/scripts/init.sh", { zk_ip = var.zk_ip, kafka_topic = var.kafka_topic })
+  #     destination = "/tmp/init.sh"
+  #   }
+
+  # create a topic
+  provisioner "remote-exec" {
+    inline = [
+      "/home/ubuntu/kafka_2.12-2.6.0/bin/kafka-topics.sh --zookeeper ${var.zk_ip} -replication-factor 3 --partitions 6 --topic ${var.kafka_topic} --create"
+    ]
+  }
 
   tags = {
     Name = "${var.namespace}-kafka_cli"
