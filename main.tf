@@ -115,8 +115,7 @@ resource "aws_instance" "kafka_cli" {
   # create a topic
   provisioner "remote-exec" {
     inline = [
-    #   "/home/ubuntu/kafka_2.12-2.6.0/bin/kafka-topics.sh --zookeeper ${var.zk_ip} --replication-factor 3 --partitions 6 --topic ${var.kafka_topic} --create"
-      "/home/ubuntu/kafka_2.12-2.6.0/bin/kafka-topics.sh --list --zookeeper ${var.zk_ip}"
+      "/home/ubuntu/kafka_2.12-2.6.0/bin/kafka-topics.sh --zookeeper ${var.zk_ip} --replication-factor 3 --partitions 6 --topic ${var.kafka_topic} --create"
     ]
   }
 
