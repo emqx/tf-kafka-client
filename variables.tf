@@ -84,7 +84,7 @@ variable "private_key" {
 
 variable "ami" {
   type        = string
-  default     = "ami-06a97eeb32a2298e1"
+  default     = "ami-0edf6514b9243b4ac"
   description = "ami"
 }
 
