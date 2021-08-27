@@ -4,7 +4,7 @@ terraform {
     # This backend configuration is filled in automatically at test time by Terratest. If you wish to run this example
     # manually, uncomment and fill in the config below.
 
-    bucket         = "tf-test-automation"
+    bucket         = "test/tf-test-automation"
     key            = "kafka-cli/terraform.tfstate"
     region         = "ap-southeast-1"
     dynamodb_table = "tf-test-automation"
