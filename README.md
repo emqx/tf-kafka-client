@@ -21,12 +21,12 @@ Default region name [None]: us-west-2
 ```bash
 cd services/kafka-cli
 terraform init
-terraform apply -auto-approve -var="zk_ip=ip:2181" -var="kafka_topic=topic name"
+terraform apply -auto-approve -var="zk_ip=ip:2181" -var="kafka_topic=topic name" -var="private_key=private key"
 ```
 
 ### Destory
 ```bash
 cd emqx
 terraform init
-terraform destroy -auto-approve -var="zk_ip=ip:2181" -var="kafka_topic=topic name"
+terraform destroy -auto-approve -var="zk_ip=ip:2181" -var="kafka_topic=topic name" -var="private_key=private key"
 ```
