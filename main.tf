@@ -1,16 +1,16 @@
-terraform {
-  backend "s3" {
+# terraform {
+#   backend "s3" {
 
-    # This backend configuration is filled in automatically at test time by Terratest. If you wish to run this example
-    # manually, uncomment and fill in the config below.
+#     # This backend configuration is filled in automatically at test time by Terratest. If you wish to run this example
+#     # manually, uncomment and fill in the config below.
 
-    bucket         = "dev.tf-test-automation"
-    key            = "kafka-cli/terraform.tfstate"
-    region         = "ap-southeast-1"
-    dynamodb_table = "tf-test-automation"
-    encrypt        = true
-  }
-}
+#     bucket         = "test.tf-test-automation"
+#     key            = "kafka-cli/terraform.tfstate"
+#     region         = "ap-southeast-1"
+#     dynamodb_table = "tf-test-automation"
+#     encrypt        = true
+#   }
+# }
 
 provider "aws" {
   region     = var.region
